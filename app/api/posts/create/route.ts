@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPost as createPostDB } from '@/lib/firestore';
 import { auth } from '@/lib/firebase';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * Create a new post
@@ -36,13 +37,24 @@ export async function POST(request: NextRequest) {
 
     // Create post in Firestore
     const postId = await createPostDB({
+      communityId,
+      authorName: 'Admin', // TODO: Get from user data
+      authorRole: 'admin',
       title,
       content,
       excerpt: content.substring(0, 200) + '...',
-      category,
-      priority,
-      isPinned,
-      communityId,
+      category: category || 'general',
+      priority: priority || 'low',
+      media: {
+        images: [],
+        videos: [],
+        documents: [],
+      },
+      attachments: [],
+      status: 'published',
+      isPinned: isPinned || false,
+      allowComments: true,
+      targetAudience: 'all',
     }, firebaseUser.uid);
 
     return NextResponse.json({

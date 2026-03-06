@@ -25,11 +25,11 @@ const CommunityMap = dynamic(() => import('@/components/CommunityMap'), {
 
 // Community data - Areas within 5KM radius
 const communities = [
-  { id: 1, name: 'Downtown Area', city: 'Mumbai', lat: 19.0760, lng: 72.8777, radius: 5 },
-  { id: 2, name: 'Connaught Place', city: 'Delhi', lat: 28.6139, lng: 77.2090, radius: 5 },
-  { id: 3, name: 'Koramangala', city: 'Bangalore', lat: 12.9716, lng: 77.5946, radius: 5 },
-  { id: 4, name: 'T Nagar', city: 'Chennai', lat: 13.0827, lng: 80.2707, radius: 5 },
-  { id: 5, name: 'HITEC City', city: 'Hyderabad', lat: 17.3850, lng: 78.4867, radius: 5 },
+  { id: 1, name: 'Downtown Area', city: 'Mumbai', lat: 19.0760, lng: 72.8777, units: 5 },
+  { id: 2, name: 'Connaught Place', city: 'Delhi', lat: 28.6139, lng: 77.2090, units: 5 },
+  { id: 3, name: 'Koramangala', city: 'Bangalore', lat: 12.9716, lng: 77.5946, units: 5 },
+  { id: 4, name: 'T Nagar', city: 'Chennai', lat: 13.0827, lng: 80.2707, units: 5 },
+  { id: 5, name: 'HITEC City', city: 'Hyderabad', lat: 17.3850, lng: 78.4867, units: 5 },
 ];
 
 // Custom community type for user-marked locations
@@ -756,7 +756,7 @@ export default function Home() {
                                 {selectedCommunity.city}
                               </p>
                               <p className="text-xs text-gray-500">
-                                {selectedCommunity.radius ? `${selectedCommunity.radius}KM radius area` : 'Custom location'}
+                                {selectedCommunity.units ? `${selectedCommunity.units}KM radius area` : 'Custom location'}
                               </p>
                             </div>
                             <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
