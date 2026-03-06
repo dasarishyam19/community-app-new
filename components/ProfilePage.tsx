@@ -3,7 +3,7 @@
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { User, Phone, MapPin, Shield, Building2, LogOut, Settings, Moon, Sun, Monitor, Bell, Lock, HelpCircle } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme, type Theme } from '@/contexts/ThemeContext';
 import { getCommunityById } from '@/lib/firestore';
 import { useEffect, useState } from 'react';
 

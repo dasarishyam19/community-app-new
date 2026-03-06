@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Loader2, LayoutDashboard, FileText, BarChart3, AlertTriangle, Receipt, Users, Home, LogOut, Shield, Plus } from 'lucide-react';
@@ -153,7 +153,6 @@ export default function AdminDashboardPage() {
             onSuccess={() => setShowCreateBillModal(false)}
           />
         )}
-        </div>
       </div>
     </div>
   );

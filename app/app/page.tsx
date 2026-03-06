@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 import { Home, FileText, AlertTriangle, Receipt, User, Menu, Heart, MessageCircle, Bookmark, LogOut, Sun, Moon, Monitor } from 'lucide-react';
-import { useTheme } from '@/contexts/ThemeContext';
+import { useTheme, type Theme } from '@/contexts/ThemeContext';
 import Logo from '@/components/Logo';
 import dynamic from 'next/dynamic';
 

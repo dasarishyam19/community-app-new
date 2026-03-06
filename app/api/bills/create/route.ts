@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       dueDate: new Date(dueDate),
       period,
       status: 'pending',
-    }, firebaseUser.uid);
+    });
 
     return NextResponse.json({
       success: true,

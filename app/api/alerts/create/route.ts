@@ -36,6 +36,9 @@ export async function POST(request: NextRequest) {
 
     // Create alert in Firestore
     const alertId = await createAlertDB({
+      communityId,
+      senderId: firebaseUser.uid,
+      senderName: 'Admin', // TODO: Get from user data
       title,
       message,
       type,
@@ -44,14 +47,14 @@ export async function POST(request: NextRequest) {
       startsAt: startsAt || new Date().toISOString(),
       endsAt,
       status: 'active',
-      requiresConfirmation,
+      requiresConfirmation: requiresConfirmation || false,
       deliveryMethod: {
         push: true,
         sms: false,
         whatsapp: true,
         email: false,
       },
-    }, firebaseUser.uid);
+    });
 
     return NextResponse.json({
       success: true,

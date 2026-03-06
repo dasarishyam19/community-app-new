@@ -46,8 +46,8 @@ export default function AlertsPage() {
     );
   }
 
-  const activeAlerts = alerts.filter(a => a.isActive);
-  const inactiveAlerts = alerts.filter(a => !a.isActive);
+  const activeAlerts = alerts.filter(a => a.status === 'active');
+  const inactiveAlerts = alerts.filter(a => a.status !== 'active');
 
   return (
     <div className="pb-20 md:pb-0 md:pl-72 space-y-4">
@@ -124,7 +124,7 @@ function AlertCard({ alert }: AlertCardProps) {
 
   return (
     <div className={`bg-white dark:bg-gray-800 rounded-2xl overflow-hidden border-l-4 ${severity.border} ${
-      !alert.isActive ? 'opacity-60' : ''
+      alert.status !== 'active' ? 'opacity-60' : ''
     }`}>
       <div className={`${severity.bg} p-4`}>
         <div className="flex items-start gap-3">
@@ -139,15 +139,15 @@ function AlertCard({ alert }: AlertCardProps) {
                   {alert.type} • {alert.severity}
                 </p>
               </div>
-              {!alert.isActive && (
+              {alert.status !== 'active' && (
                 <span className="px-2 py-1 rounded-full text-xs font-semibold bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
-                  Resolved
+                  {alert.status.charAt(0).toUpperCase() + alert.status.slice(1)}
                 </span>
               )}
             </div>
 
-            {alert.description && (
-              <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">{alert.description}</p>
+            {alert.message && (
+              <p className="text-gray-700 dark:text-gray-300 text-sm mb-3">{alert.message}</p>
             )}
 
             {alert.affectedAreas && alert.affectedAreas.length > 0 && (
@@ -173,8 +173,8 @@ function AlertCard({ alert }: AlertCardProps) {
                   minute: '2-digit'
                 })}
               </span>
-              {alert.createdBy && (
-                <span>By {alert.createdBy}</span>
+              {alert.senderName && (
+                <span>By {alert.senderName}</span>
               )}
             </div>
           </div>
