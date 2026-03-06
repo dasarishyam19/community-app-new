@@ -3,11 +3,12 @@ import {
   signInWithPhoneNumber,
   RecaptchaVerifier,
   ConfirmationResult,
-  PhoneAuthCredential,
+  PhoneAuthProvider,
   User,
   UserCredential,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithCredential,
   signOut as firebaseSignOut,
 } from 'firebase/auth';
 
@@ -57,8 +58,8 @@ export const sendOTP = async (phoneNumber: string): Promise<ConfirmationResult> 
 // Verify OTP code
 export const verifyOTP = async (confirmationResult: ConfirmationResult, otp: string): Promise<UserCredential> => {
   try {
-    const credential = PhoneAuthCredential.credential(confirmationResult.verificationId, otp);
-    const userCredential = await auth.signInWithCredential(credential);
+    const credential = PhoneAuthProvider.credential(confirmationResult.verificationId, otp);
+    const userCredential = await signInWithCredential(auth, credential);
     return userCredential;
   } catch (error: any) {
     console.error('Error verifying OTP:', error);
@@ -77,7 +78,9 @@ export const registerWithEmailPassword = async (
     const user = userCredential.user;
 
     // Update display name
+    // @ts-ignore - updateProfile exists on User but types may not be up to date
     if (user) {
+      // @ts-ignore
       await user.updateProfile({
         displayName: displayName,
       });

@@ -440,8 +440,8 @@ export type WithId<T> = T & { id: string };
 
 export type CreateUserData = Omit<User, 'id' | 'createdAt' | 'updatedAt'>;
 export type CreateCommunityData = Omit<Community, 'id' | 'createdAt' | 'updatedAt' | 'stats'>;
-export type CreatePostData = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'stats' | 'publishedAt'>;
-export type CreatePollData = Omit<Poll, 'id' | 'createdAt' | 'totalVotes'>;
+export type CreatePostData = Omit<Post, 'id' | 'createdAt' | 'updatedAt' | 'stats' | 'publishedAt' | 'authorId'>;
+export type CreatePollData = Omit<Poll, 'id' | 'createdAt' | 'totalVotes' | 'createdBy'>;
 export type CreateAlertData = Omit<Alert, 'id' | 'createdAt' | 'updatedAt' | 'sentStats'>;
 export type CreateBillData = Omit<Bill, 'id' | 'createdAt' | 'updatedAt' | 'paidAt'>;
 export type CreatePaymentData = Omit<Payment, 'id' | 'createdAt' | 'completedAt' | 'failedAt' | 'refundedAt'>;

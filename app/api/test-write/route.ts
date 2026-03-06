@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { createUser } from '@/lib/firestore';
 import type { CreateUserData } from '@/types/database';
+import { Timestamp } from 'firebase/firestore';
 
 export async function POST() {
   try {
@@ -17,6 +18,7 @@ export async function POST() {
       },
       isVerified: true,
       isActive: true,
+      lastLoginAt: Timestamp.now(),
       preferences: {
         language: 'en',
         notifications: {

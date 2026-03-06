@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createBill as createBillDB } from '@/lib/firestore';
 import { auth } from '@/lib/firebase';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * Create a new bill
@@ -36,17 +37,23 @@ export async function POST(request: NextRequest) {
 
     // Create bill in Firestore
     const billId = await createBillDB({
+      communityId,
       userId,
       userName: userName || 'Community Member',
       type,
       category: 'utility',
       title,
-      description,
+      description: description || '',
       amount,
       currency: currency || 'INR',
-      dueDate: new Date(dueDate),
-      period,
+      dueDate: Timestamp.fromDate(new Date(dueDate)),
+      period: period || {
+        from: Timestamp.fromDate(new Date()),
+        to: Timestamp.fromDate(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000)), // Default 30 days
+      },
       status: 'pending',
+      attachments: [],
+      createdBy: firebaseUser.uid,
     });
 
     return NextResponse.json({

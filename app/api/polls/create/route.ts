@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { createPoll as createPollDB } from '@/lib/firestore';
 import { auth } from '@/lib/firebase';
+import { Timestamp } from 'firebase/firestore';
 
 /**
  * Create a new poll
@@ -35,13 +36,30 @@ export async function POST(request: NextRequest) {
     }
 
     // Create poll in Firestore
+    const endsAt = settings?.endTime
+      ? Timestamp.fromDate(new Date(settings.endTime))
+      : Timestamp.fromDate(new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)); // Default: 7 days
+
     const pollId = await createPollDB({
+      communityId,
+      creatorName: 'Admin', // TODO: Get from user data
       question,
-      description,
-      options,
-      settings,
+      description: description || '',
+      options: options.map((opt: any, index: number) => ({
+        id: `option_${index}`,
+        text: opt.text || opt,
+        order: index,
+        votes: 0,
+      })),
+      settings: {
+        allowMultiple: settings?.allowMultiple || false,
+        isAnonymous: settings?.isAnonymous || false,
+        allowAddOptions: settings?.allowAddOptions || false,
+        endTime: endsAt,
+      },
       status: 'active',
-      category: 'general',
+      category: settings?.category || 'general',
+      endsAt,
     }, firebaseUser.uid);
 
     return NextResponse.json({
