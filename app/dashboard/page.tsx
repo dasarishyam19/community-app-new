@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
-import { Loader2, User, Phone, Home as HomeIcon, Building2, LogOut, Shield, MapPin } from 'lucide-react';
+import { Loader2, User, Phone, Home as HomeIcon, Building2, LogOut, Shield, MapPin, LayoutDashboard, FileText, BarChart3, MessageSquareReply, HelpCircle, Receipt } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import type { User as FirestoreUser } from '@/types/database';
 import Logo from '@/components/Logo';
@@ -137,7 +137,7 @@ export default function DashboardPage() {
                 onClick={() => router.push('/admin')}
                 className="p-4 bg-white rounded-xl hover:shadow-lg transition-all cursor-pointer"
               >
-                <div className="text-3xl mb-2">⚡</div>
+                <LayoutDashboard className="w-8 h-8 text-amber-600 mb-2" />
                 <h3 className="font-semibold text-gray-800">Admin Panel</h3>
                 <p className="text-sm text-gray-600 mt-1">Manage everything from here</p>
               </div>
@@ -145,7 +145,7 @@ export default function DashboardPage() {
                 onClick={() => router.push('/admin')}
                 className="p-4 bg-white rounded-xl hover:shadow-lg transition-all cursor-pointer"
               >
-                <div className="text-3xl mb-2">📝</div>
+                <FileText className="w-8 h-8 text-blue-600 mb-2" />
                 <h3 className="font-semibold text-gray-800">Create Post</h3>
                 <p className="text-sm text-gray-600 mt-1">Share news & updates</p>
               </div>
@@ -153,7 +153,7 @@ export default function DashboardPage() {
                 onClick={() => router.push('/admin')}
                 className="p-4 bg-white rounded-xl hover:shadow-lg transition-all cursor-pointer"
               >
-                <div className="text-3xl mb-2">📊</div>
+                <BarChart3 className="w-8 h-8 text-purple-600 mb-2" />
                 <h3 className="font-semibold text-gray-800">Create Poll</h3>
                 <p className="text-sm text-gray-600 mt-1">Get community opinion</p>
               </div>
@@ -169,7 +169,7 @@ export default function DashboardPage() {
               onClick={() => router.push('/community')}
               className="p-4 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl text-center hover:shadow-lg transition-all cursor-pointer"
             >
-              <div className="text-4xl mb-2">💬</div>
+              <MessageSquareReply className="w-12 h-12 text-blue-600 mx-auto mb-2" />
               <h3 className="font-semibold text-gray-800">Community Feed</h3>
               <p className="text-sm text-gray-600 mt-1">View posts from your community</p>
             </div>
@@ -177,7 +177,7 @@ export default function DashboardPage() {
               onClick={() => router.push('/polls')}
               className="p-4 bg-gradient-to-br from-indigo-50 to-cyan-50 rounded-xl text-center hover:shadow-lg transition-all cursor-pointer"
             >
-              <div className="text-4xl mb-2">🗳️</div>
+              <HelpCircle className="w-12 h-12 text-purple-600 mx-auto mb-2" />
               <h3 className="font-semibold text-gray-800">Active Polls</h3>
               <p className="text-sm text-gray-600 mt-1">Vote on community decisions</p>
             </div>
@@ -185,7 +185,7 @@ export default function DashboardPage() {
               onClick={() => router.push('/bills')}
               className="p-4 bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl text-center hover:shadow-lg transition-all cursor-pointer"
             >
-              <div className="text-4xl mb-2">💳</div>
+              <Receipt className="w-12 h-12 text-green-600 mx-auto mb-2" />
               <h3 className="font-semibold text-gray-800">Bill Payments</h3>
               <p className="text-sm text-gray-600 mt-1">Pay utility bills online</p>
             </div>

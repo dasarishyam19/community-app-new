@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Loader2, Receipt, ArrowLeft, CreditCard, Calendar, AlertCircle, CheckCircle } from 'lucide-react';
+import { Loader2, Receipt, ArrowLeft, CreditCard, Calendar, AlertCircle, CheckCircle, Zap, Trash2, Droplets, Home, FileText } from 'lucide-react';
 import { getUserBills, getPendingBills } from '@/lib/firestore';
 import type { Bill } from '@/types/database';
 import Logo from '@/components/Logo';
@@ -128,14 +128,14 @@ function BillCard({ bill, onPay }: BillCardProps) {
   };
 
   const getTypeIcon = (type: string) => {
-    const icons: Record<string, string> = {
-      electricity: '⚡',
-      garbage: '🗑️',
-      water: '💧',
-      property_tax: '🏠',
-      custom: '📄',
+    const icons: Record<string, React.ComponentType<{ className?: string }>> = {
+      electricity: Zap,
+      garbage: Trash2,
+      water: Droplets,
+      property_tax: Home,
+      custom: FileText,
     };
-    return icons[type] || '📄';
+    return icons[type] || FileText;
   };
 
   const isPending = bill.status === 'pending';
@@ -148,7 +148,12 @@ function BillCard({ bill, onPay }: BillCardProps) {
         {/* Header */}
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center gap-3">
-            <div className="text-4xl">{getTypeIcon(bill.type)}</div>
+            <div className="w-12 h-12 bg-gray-50 rounded-xl flex items-center justify-center">
+              {(() => {
+                const Icon = getTypeIcon(bill.type);
+                return <Icon className="w-6 h-6 text-gray-700" />;
+              })()}
+            </div>
             <div>
               <h3 className="text-lg font-bold text-gray-800">{bill.title}</h3>
               <p className="text-sm text-gray-600">{bill.type.replace('_', ' ').toUpperCase()}</p>

@@ -25,7 +25,7 @@ interface CommunityMapProps {
     city: string;
     lat: number;
     lng: number;
-    units: number;
+    radiusKm: number;
   }>;
   selectedCommunity: any;
   onCommunitySelect: (community: any) => void;
@@ -82,7 +82,7 @@ export default function CommunityMap({
             <div className="text-center">
               <p className="font-semibold">{community.name}</p>
               <p className="text-xs text-gray-600">{community.city}</p>
-              <p className="text-xs text-gray-500">{community.units} units</p>
+              <p className="text-xs text-gray-500">{community.radiusKm} KM radius</p>
             </div>
           </Popup>
         </Marker>

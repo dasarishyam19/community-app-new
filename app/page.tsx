@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Building2, Phone, Lock, User, Home as HomeIcon, Mail, CheckCircle, Loader2, MapPin, ChevronRight, AlertCircle } from 'lucide-react';
+import { Building2, Phone, Lock, User, Home as HomeIcon, Mail, CheckCircle, Loader2, MapPin, ChevronRight, AlertCircle, Lightbulb, MessageSquare, Users, LayoutDashboard } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import { useAuth } from '@/contexts/AuthContext';
 import { useRouter } from 'next/navigation';
@@ -25,11 +25,11 @@ const CommunityMap = dynamic(() => import('@/components/CommunityMap'), {
 
 // Community data - Areas within 5KM radius
 const communities = [
-  { id: 1, name: 'Downtown Area', city: 'Mumbai', lat: 19.0760, lng: 72.8777, units: 5 },
-  { id: 2, name: 'Connaught Place', city: 'Delhi', lat: 28.6139, lng: 77.2090, units: 5 },
-  { id: 3, name: 'Koramangala', city: 'Bangalore', lat: 12.9716, lng: 77.5946, units: 5 },
-  { id: 4, name: 'T Nagar', city: 'Chennai', lat: 13.0827, lng: 80.2707, units: 5 },
-  { id: 5, name: 'HITEC City', city: 'Hyderabad', lat: 17.3850, lng: 78.4867, units: 5 },
+  { id: 1, name: 'Downtown Area', city: 'Mumbai', lat: 19.0760, lng: 72.8777, radiusKm: 5 },
+  { id: 2, name: 'Connaught Place', city: 'Delhi', lat: 28.6139, lng: 77.2090, radiusKm: 5 },
+  { id: 3, name: 'Koramangala', city: 'Bangalore', lat: 12.9716, lng: 77.5946, radiusKm: 5 },
+  { id: 4, name: 'T Nagar', city: 'Chennai', lat: 13.0827, lng: 80.2707, radiusKm: 5 },
+  { id: 5, name: 'HITEC City', city: 'Hyderabad', lat: 17.3850, lng: 78.4867, radiusKm: 5 },
 ];
 
 // Custom community type for user-marked locations
@@ -39,7 +39,7 @@ interface CustomCommunity {
   city: string;
   lat: number;
   lng: number;
-  units: number;
+  radiusKm: number;
   isCustom?: boolean;
 }
 
@@ -317,7 +317,7 @@ export default function Home() {
       city: result.address?.city || result.address?.town || result.address?.village || 'Unknown',
       lat,
       lng,
-      units: 0,
+      radiusKm: 0,
       isCustom: true,
     };
 
@@ -347,7 +347,7 @@ export default function Home() {
         city: data.address?.city || data.address?.town || data.address?.village || 'Unknown',
         lat,
         lng,
-        units: 0,
+        radiusKm: 0,
         isCustom: true,
       };
 
@@ -733,7 +733,8 @@ export default function Home() {
                         {/* Map Overlay Instructions */}
                         <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
                           <p className="text-xs text-gray-700 text-center">
-                            <span className="font-semibold">💡 Tip:</span> Search above or click anywhere on the map to select your area (5KM radius)
+                            <Lightbulb className="w-4 h-4 inline mr-1" />
+                            <span className="font-semibold">Tip:</span> Search above or click anywhere on the map to select your area (5KM radius)
                           </p>
                         </div>
                       </div>
@@ -756,7 +757,7 @@ export default function Home() {
                                 {selectedCommunity.city}
                               </p>
                               <p className="text-xs text-gray-500">
-                                {selectedCommunity.units ? `${selectedCommunity.units}KM radius area` : 'Custom location'}
+                                {selectedCommunity.radiusKm ? `${selectedCommunity.radiusKm}KM radius area` : 'Custom location'}
                               </p>
                             </div>
                             <CheckCircle className="w-6 h-6 text-emerald-600 flex-shrink-0" />
@@ -936,17 +937,17 @@ export default function Home() {
           className="mt-8 grid grid-cols-3 gap-4 max-w-4xl mx-auto"
         >
           <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="text-4xl mb-3">💬</div>
+            <MessageSquare className="w-12 h-12 mx-auto mb-3 text-blue-600" />
             <p className="text-sm font-bold text-gray-800">Local Chat</p>
             <p className="text-xs text-gray-500 mt-1">5KM radius</p>
           </div>
           <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="text-4xl mb-3">📢</div>
+            <AlertCircle className="w-12 h-12 mx-auto mb-3 text-amber-600" />
             <p className="text-sm font-bold text-gray-800">Announcements</p>
             <p className="text-xs text-gray-500 mt-1">Stay updated</p>
           </div>
           <div className="text-center p-6 bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg hover:shadow-xl transition-all hover:-translate-y-1">
-            <div className="text-4xl mb-3">🤝</div>
+            <Users className="w-12 h-12 mx-auto mb-3 text-green-600" />
             <p className="text-sm font-bold text-gray-800">Connect</p>
             <p className="text-xs text-gray-500 mt-1">With neighbors</p>
           </div>
